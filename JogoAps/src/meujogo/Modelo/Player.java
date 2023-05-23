@@ -25,7 +25,7 @@ public class Player {
 	}
 
 	public void load() {
-		ImageIcon referencia = new ImageIcon("res\\nave.png");
+		ImageIcon referencia = new ImageIcon("res\\caminhao.png");
 		imagem = referencia.getImage();
 		altura = imagem.getHeight(null);
 		largura = imagem.getWidth(null);

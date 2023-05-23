@@ -9,7 +9,7 @@ public class Container extends JFrame{
 	public Container() {
 		add(new Fase());
 		setTitle("Meu Jogo");
-		setSize(768,768);
+		setSize(800,604);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		this.setResizable(true);

@@ -35,9 +35,9 @@ public class Stars {
 			this.x = largura;
 			Random a = new Random();
 			int m = a.nextInt(500);
-			this.x = m + 768;
+			this.x = m + 800;
 			Random r = new Random();
-			int n = r.nextInt(768);
+			int n = r.nextInt(604);
 			this.y = n;
 
 		} else {

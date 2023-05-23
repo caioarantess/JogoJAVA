@@ -21,7 +21,7 @@ public class Fase extends JPanel implements ActionListener {
 	private Image fundo;
 	private Player player;
 	private Timer timer;
-	private List<Enemy1> enemy1;
+	private List<Inimigo> inimigo;
 	private List<Stars> stars;
 	private boolean emJogo;
 
@@ -29,7 +29,7 @@ public class Fase extends JPanel implements ActionListener {
 		setFocusable(true);
 		setDoubleBuffered(true);
 
-		ImageIcon reference = new ImageIcon("res\\funde.png");
+		ImageIcon reference = new ImageIcon("res\\fundo.jpg");
 		fundo = reference.getImage();
 
 		player = new Player();
@@ -47,12 +47,12 @@ public class Fase extends JPanel implements ActionListener {
 
 	public void inicializaInimigos() {
 		int coordenadas[] = new int[40];
-		enemy1 = new ArrayList<Enemy1>();
+		inimigo = new ArrayList<Inimigo>();
 
 		for (int i = 0; i < coordenadas.length; i++) {
-			int x = (int) (Math.random() * 8000 + 768);
-			int y = (int) (Math.random() * 768 + 50);
-			enemy1.add(new Enemy1(x, y));
+			int x = (int) (Math.random() * 8000 + 800);
+			int y = (int) (Math.random() * 604 + 50);
+			inimigo.add(new Inimigo(x, y));
 
 		}
 	}
@@ -61,7 +61,7 @@ public class Fase extends JPanel implements ActionListener {
 		int coordenadas[] = new int[40];
 		stars = new ArrayList<Stars>();
 		for (int i = 0; i < coordenadas.length; i++) {
-			int x = (int) (Math.random() * 768 + 0);
+			int x = (int) (Math.random() * 800 + 0);
 			int y = (int) (Math.random() * 768 + 0);
 			stars.add(new Stars(x, y));
 		}
@@ -87,8 +87,8 @@ public class Fase extends JPanel implements ActionListener {
 				graficos.drawImage(m.getImagem(), m.getX(), m.getY(), this);
 			}
 
-			for (int o = 0; o < enemy1.size(); o++) {
-				Enemy1 in = enemy1.get(o);
+			for (int o = 0; o < inimigo.size(); o++) {
+				Inimigo in = inimigo.get(o);
 				in.load();
 				graficos.drawImage(in.getImagem(), in.getX(), in.getY(), this);
 			}
@@ -123,12 +123,12 @@ public class Fase extends JPanel implements ActionListener {
 			}
 		}
 
-		for (int o = 0; o < enemy1.size(); o++) {
-			Enemy1 in = enemy1.get(o);
+		for (int o = 0; o < inimigo.size(); o++) {
+			Inimigo in = inimigo.get(o);
 			if (in.isVisivel()) {
 				in.update();
 			} else {
-				enemy1.remove(o);
+				inimigo.remove(o);
 			}
 		}
 		checharColisoes();
@@ -137,15 +137,15 @@ public class Fase extends JPanel implements ActionListener {
 
 	public void checharColisoes() {
 		Rectangle formaNave = player.getBounds();
-		Rectangle formaEnemy1;
+		Rectangle formaInimigo;
 		Rectangle formaTiro;
 
-		for (int i = 0; i < enemy1.size(); i++) {
-			Enemy1 tempEnemy1 = enemy1.get(i);
-			formaEnemy1 = tempEnemy1.getBounds();
-			if (formaNave.intersects(formaEnemy1)) {
+		for (int i = 0; i < inimigo.size(); i++) {
+			Inimigo tempInimigo = inimigo.get(i);
+			formaInimigo = tempInimigo.getBounds();
+			if (formaNave.intersects(formaInimigo)) {
 				player.setVisivel(false);
-				tempEnemy1.setVisivel(false);
+				tempInimigo.setVisivel(false);
 				emJogo = false;
 			}
 		}
@@ -154,11 +154,11 @@ public class Fase extends JPanel implements ActionListener {
 		for (int j = 0; j < tiros.size(); j++) {
 			Tiro tempTiro = tiros.get(j);
 			formaTiro = tempTiro.getBounds();
-			for (int o = 0; o < enemy1.size(); o++) {
-				Enemy1 tempEnemy1 = enemy1.get(o);
-				formaEnemy1 = tempEnemy1.getBounds();
-				if (formaTiro.intersects(formaEnemy1)) {
-					tempEnemy1.setVisivel(false);
+			for (int o = 0; o < inimigo.size(); o++) {
+				Inimigo tempInimigo = inimigo.get(o);
+				formaInimigo = tempInimigo.getBounds();
+				if (formaTiro.intersects(formaInimigo)) {
+					tempInimigo.setVisivel(false);
 					tempTiro.setVisivel(false);
 				}
 			}
